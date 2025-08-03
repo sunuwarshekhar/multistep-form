@@ -18,6 +18,7 @@ export const StepOneForm = ({ dateType, setDateType }) => {
         <Input
           {...register("fullNameEnglish")}
           placeholder="Enter full name in English"
+          type="text"
         />
         {errors.fullNameEnglish && (
           <Alert>
@@ -73,7 +74,7 @@ export const StepOneForm = ({ dateType, setDateType }) => {
       </div>
 
       <div className=" ">
-        <div className="flex">
+        <div className="grid grid-cols-2 gap-12">
           <Controller
             name="dateOfBirth"
             control={control}
@@ -89,16 +90,29 @@ export const StepOneForm = ({ dateType, setDateType }) => {
               />
             )}
           />
-          <div>
-            <select
-              id="dateType"
-              value={dateType}
-              onChange={(e) => setDateType(e.target.value)}
-              className="border border-gray-300 rounded px-3 py-2"
-            >
-              <option value="BS">BS</option>
-              <option value="AD">AD</option>
-            </select>
+          <div className="flex gap-4 items-center">
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="dateType"
+                value="BS"
+                className="cursor-pointer"
+                checked={dateType === "BS"}
+                onChange={(e) => setDateType(e.target.value)}
+              />
+              BS
+            </label>
+            <label className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="dateType"
+                value="AD"
+                className="cursor-pointer"
+                checked={dateType === "AD"}
+                onChange={(e) => setDateType(e.target.value)}
+              />
+              AD
+            </label>
           </div>
         </div>
         {errors.dateOfBirth && (
@@ -110,7 +124,11 @@ export const StepOneForm = ({ dateType, setDateType }) => {
 
       <div>
         <Label>Phone Number</Label>
-        <Input {...register("phoneNumber")} placeholder="9XXXXXXXXX" />
+        <Input
+          {...register("phoneNumber")}
+          placeholder="9XXXXXXXXX"
+          type="number"
+        />
         {errors.phoneNumber && (
           <Alert>
             <AlertDescription>{errors.phoneNumber.message}</AlertDescription>

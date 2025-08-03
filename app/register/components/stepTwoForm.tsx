@@ -14,7 +14,7 @@ export const StepTwoForm = () => {
     <>
       <div>
         <Label>Citizenship Number</Label>
-        <Input {...register("citizenshipNumber")} />
+        <Input {...register("citizenshipNumber")} type="number" />
         {errors.citizenshipNumber && (
           <Alert>
             <AlertDescription>

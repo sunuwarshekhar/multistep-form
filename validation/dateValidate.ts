@@ -7,7 +7,14 @@ export const Step1Schema = z.object({
     .string()
     .trim()
     .nonempty("Full name is required")
-    .regex(/^[A-Za-z\s]+$/, "Only alphabets and spaces allowed"),
+    .refine(
+      (val) => /^[A-Za-z\s]+$/.test(val),
+      "Only alphabets and spaces are allowed"
+    )
+    .refine(
+      (val) => val.trim().split(/\s+/).length >= 2,
+      "Please enter first and last name"
+    ),
   fullNameNepali: z.string().trim().nonempty("Nepali name is required"),
   gender: z.enum(["male", "female", "other"], {
     errorMap: () => ({ message: "Gender is required" }),
