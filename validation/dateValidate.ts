@@ -1,6 +1,27 @@
 import z from "zod";
-import { validateFile } from "../helper/validationImage";
 import { calculateAge } from "../utils/dateConversion";
+
+const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ACCEPTED_TYPES = [
+  "image/jpeg",
+  "image/png",
+  "image/jpg",
+  "application/pdf",
+];
+
+const singleFileSchema = z.any().refine(
+  (files) => {
+    return (
+      files instanceof FileList &&
+      files.length === 1 &&
+      ACCEPTED_TYPES.includes(files[0]?.type) &&
+      files[0]?.size <= MAX_FILE_SIZE
+    );
+  },
+  {
+    message: "Must be one image or PDF file under 5MB",
+  }
+);
 
 export const Step1Schema = z.object({
   fullNameEnglish: z
@@ -41,22 +62,6 @@ export const Step2Schema = z.object({
   issuedDate: z.string().refine((val) => new Date(val) <= new Date(), {
     message: "Issued date cannot be in the future",
   }),
-  citizenshipFront: z
-    .any()
-    .refine(
-      (files) =>
-        files instanceof FileList &&
-        files.length === 1 &&
-        validateFile(files[0]),
-      { message: "Invalid front file" }
-    ),
-  citizenshipBack: z
-    .any()
-    .refine(
-      (files) =>
-        files instanceof FileList &&
-        files.length === 1 &&
-        validateFile(files[0]),
-      { message: "Invalid back file" }
-    ),
+  citizenshipFront: singleFileSchema,
+  citizenshipBack: singleFileSchema,
 });
