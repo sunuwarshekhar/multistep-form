@@ -2,7 +2,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Input } from "@/components/ui/input";
 import { Label } from "@radix-ui/react-label";
 import { useFormContext } from "react-hook-form";
-import { districts } from "../../constants/location";
+import { districts } from "../../../constants/location";
 
 export const StepTwoForm = () => {
   const {

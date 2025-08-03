@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 
-import { Step1Schema, Step2Schema } from "../validation/dateValidate";
+import { Step1Schema, Step2Schema } from "../../validation/dateValidate";
 import { StepOneForm } from "./components/stepOneForm";
 import { StepTwoForm } from "./components/stepTwoForm";
 
